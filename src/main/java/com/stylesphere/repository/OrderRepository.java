@@ -10,7 +10,8 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     Order findByUserIdAndOrderStatus(Long userId, OrderStatus orderStatus);
-    List<Order> findByUserIdAndOrderStatusIn(Long userId, List<OrderStatus> orderStatuses);
-    List<Order> findAllByOrderStatusIn(List<OrderStatus> orderStatuses);
 
+    List<Order> findByUserIdAndOrderStatusIn(Long userId, List<OrderStatus> orderStatuses);
+
+    List<Order> findAllByOrderStatusIn(List<OrderStatus> orderStatuses);
 }

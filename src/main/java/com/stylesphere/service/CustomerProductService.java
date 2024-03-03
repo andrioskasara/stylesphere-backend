@@ -9,5 +9,6 @@ public interface CustomerProductService {
     List<ProductDto> getAllProducts();
 
     List<ProductDto> searchProductsByTitle(String title);
+
     ProductDetailsDto getProductDetailsById(Long productId);
 }

@@ -23,7 +23,6 @@ public class SimpleCorsFilter implements Filter {
     public SimpleCorsFilter() {
     }
 
-
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
@@ -45,7 +44,6 @@ public class SimpleCorsFilter implements Filter {
         } else {
             filterChain.doFilter(request, response);
         }
-
     }
 
     @Override

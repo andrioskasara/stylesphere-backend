@@ -26,6 +26,9 @@ public class Review {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Product product;
 
+    public Review() {
+    }
+
     public ReviewDto getDto() {
         ReviewDto reviewDto = new ReviewDto();
         reviewDto.setId(id);

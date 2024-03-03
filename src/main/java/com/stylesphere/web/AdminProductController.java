@@ -24,6 +24,14 @@ public class AdminProductController {
         return ResponseEntity.ok(productDtos);
     }
 
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long productId) {
+        ProductDto productDto = productService.getProductById(productId);
+        if (productDto != null)
+            return ResponseEntity.ok(productDto);
+        else return ResponseEntity.notFound().build();
+    }
+
     @GetMapping("/products/search/{name}")
     public ResponseEntity<List<ProductDto>> getAllProductsByName(@PathVariable String name) {
         List<ProductDto> productDtos = productService.getAllProductsByName(name);
@@ -36,6 +44,14 @@ public class AdminProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(product);
     }
 
+    @PutMapping("/product/edit/{productId}")
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long productId, @ModelAttribute ProductDto productDto) throws IOException {
+        ProductDto updatedProduct = productService.updateProduct(productId, productDto);
+        if (updatedProduct != null)
+            return ResponseEntity.ok(updatedProduct);
+        else return ResponseEntity.notFound().build();
+    }
+
     @DeleteMapping("/product/{productId}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long productId) {
         boolean deleted = productService.deleteProduct(productId);
@@ -43,21 +59,5 @@ public class AdminProductController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
-    }
-
-    @GetMapping("/product/{productId}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable Long productId) {
-        ProductDto productDto = productService.getProductById(productId);
-        if (productDto != null)
-            return ResponseEntity.ok(productDto);
-        else return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping("/product/edit/{productId}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long productId, @ModelAttribute ProductDto productDto) throws IOException {
-        ProductDto updatedProduct = productService.updateProduct(productId, productDto);
-        if (updatedProduct != null)
-            return ResponseEntity.ok(updatedProduct);
-        else return ResponseEntity.notFound().build();
     }
 }

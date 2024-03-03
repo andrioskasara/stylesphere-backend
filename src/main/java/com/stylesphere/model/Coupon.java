@@ -17,4 +17,6 @@ public class Coupon {
     private Long discount;
     private Date expirationDate;
 
+    public Coupon() {
+    }
 }

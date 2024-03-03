@@ -27,6 +27,9 @@ public class CartItem {
     @JoinColumn(name = "order_id")
     private Order order;
 
+    public CartItem() {
+    }
+
     public CartItemDto getCartDto() {
         CartItemDto cartItemDto = new CartItemDto();
         cartItemDto.setId(id);

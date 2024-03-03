@@ -6,7 +6,7 @@ import com.stylesphere.model.dto.CategoryDto;
 import java.util.List;
 
 public interface CategoryService {
-    Category createCategory(CategoryDto categoryDto);
-
     List<Category> getAllCategories();
+
+    Category createCategory(CategoryDto categoryDto);
 }

@@ -3,6 +3,7 @@ package com.stylesphere.service.impl;
 import com.stylesphere.model.Category;
 import com.stylesphere.model.Product;
 import com.stylesphere.model.dto.ProductDto;
+import com.stylesphere.model.exceptions.CategoryNotFoundException;
 import com.stylesphere.repository.CategoryRepository;
 import com.stylesphere.repository.ProductRepository;
 import com.stylesphere.service.AdminProductService;
@@ -24,25 +25,45 @@ public class AdminProductServiceImpl implements AdminProductService {
         this.categoryRepository = categoryRepository;
     }
 
+    public List<ProductDto> getAllProducts() {
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(Product::getDto).collect(Collectors.toList());
+    }
+
+    public ProductDto getProductById(Long productId) {
+        Optional<Product> product = productRepository.findById(productId);
+        return product.map(Product::getDto).orElse(null);
+    }
+
+    public List<ProductDto> getAllProductsByName(String name) {
+        List<Product> products = productRepository.findAllByNameContaining(name);
+        return products.stream().map(Product::getDto).collect(Collectors.toList());
+    }
+
     public ProductDto createProduct(ProductDto productDto) throws IOException {
         Product product = new Product();
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
         product.setImage(productDto.getImage().getBytes());
-        Category category = categoryRepository.findById(productDto.getCategoryId()).orElseThrow();
+        Category category = categoryRepository.findById(productDto.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException(productDto.getCategoryName()));
         product.setCategory(category);
         return productRepository.save(product).getDto();
     }
 
-    public List<ProductDto> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-        return products.stream().map(Product::getDto).collect(Collectors.toList());
-    }
-
-    public List<ProductDto> getAllProductsByName(String name) {
-        List<Product> products = productRepository.findAllByNameContaining(name);
-        return products.stream().map(Product::getDto).collect(Collectors.toList());
+    public ProductDto updateProduct(Long productId, ProductDto productDto) throws IOException {
+        Optional<Product> productOptional = productRepository.findById(productId);
+        Optional<Category> categoryOptional = categoryRepository.findById(productDto.getCategoryId());
+        if (productOptional.isPresent() && categoryOptional.isPresent()) {
+            Product product = productOptional.get();
+            product.setName(productDto.getName());
+            product.setPrice(productDto.getPrice());
+            product.setDescription(productDto.getDescription());
+            product.setCategory(categoryOptional.get());
+            if (productDto.getImage() != null)
+                product.setImage(productDto.getImage().getBytes());
+            return productRepository.save(product).getDto();
+        } else return null;
     }
 
     public boolean deleteProduct(Long id) {
@@ -52,25 +73,5 @@ public class AdminProductServiceImpl implements AdminProductService {
             return true;
         }
         return false;
-    }
-
-    public ProductDto getProductById(Long productId) {
-        Optional<Product> product = productRepository.findById(productId);
-        return product.map(Product::getDto).orElse(null);
-    }
-
-    public ProductDto updateProduct(Long productId, ProductDto productDto) throws IOException {
-        Optional<Product> optionalProduct = productRepository.findById(productId);
-        Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
-        if (optionalProduct.isPresent() && optionalCategory.isPresent()) {
-            Product product = optionalProduct.get();
-            product.setName(productDto.getName());
-            product.setPrice(productDto.getPrice());
-            product.setDescription(productDto.getDescription());
-            product.setCategory(optionalCategory.get());
-            if (productDto.getImage() != null)
-                product.setImage(productDto.getImage().getBytes());
-            return productRepository.save(product).getDto();
-        } else return null;
     }
 }

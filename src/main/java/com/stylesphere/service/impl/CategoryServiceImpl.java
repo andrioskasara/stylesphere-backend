@@ -16,14 +16,14 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryRepository = categoryRepository;
     }
 
+    public List<Category> getAllCategories() {
+        return categoryRepository.findAll();
+    }
+
     public Category createCategory(CategoryDto categoryDto) {
         Category category = new Category();
         category.setName(categoryDto.getName());
         category.setDescription(categoryDto.getDescription());
         return categoryRepository.save(category);
-    }
-
-    public List<Category> getAllCategories() {
-        return categoryRepository.findAll();
     }
 }

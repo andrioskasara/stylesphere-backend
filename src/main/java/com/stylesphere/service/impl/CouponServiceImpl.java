@@ -16,14 +16,14 @@ public class CouponServiceImpl implements CouponService {
         this.couponRepository = couponRepository;
     }
 
-    public Coupon createCoupon(Coupon coupon) {
-        if(couponRepository.existsByCode(coupon.getCode())) {
-            throw  new CouponAlreadyExists(coupon.getCode());
-        }
-        return couponRepository.save(coupon);
-    }
-
     public List<Coupon> getAllCoupons() {
         return couponRepository.findAll();
+    }
+
+    public Coupon createCoupon(Coupon coupon) {
+        if (couponRepository.existsByCode(coupon.getCode())) {
+            throw new CouponAlreadyExists(coupon.getCode());
+        }
+        return couponRepository.save(coupon);
     }
 }

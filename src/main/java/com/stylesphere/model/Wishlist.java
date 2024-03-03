@@ -20,5 +20,6 @@ public class Wishlist {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-
+    public Wishlist() {
+    }
 }

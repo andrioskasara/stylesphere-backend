@@ -34,9 +34,9 @@ public class CustomerProductServiceImpl implements CustomerProductService {
     }
 
     public ProductDetailsDto getProductDetailsById(Long productId) {
-        Optional<Product>  productOptional = productRepository.findById(productId);
+        Optional<Product> productOptional = productRepository.findById(productId);
         if (productOptional.isPresent()) {
-             List<Review> reviewList = reviewRepository.findAllByProductId(productId);
+            List<Review> reviewList = reviewRepository.findAllByProductId(productId);
             ProductDetailsDto productDetailsDto = new ProductDetailsDto();
             productDetailsDto.setProductDto(productOptional.get().getDto());
             productDetailsDto.setReviewDtoList(reviewList.stream().map(Review::getDto).collect(Collectors.toList()));

@@ -34,6 +34,9 @@ public class Order {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<CartItem> cartItems;
 
+    public Order() {
+    }
+
     public OrderDto getOrderDto() {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(id);
@@ -44,7 +47,7 @@ public class Order {
         orderDto.setDate(date);
         orderDto.setOrderStatus(orderStatus);
         orderDto.setUsername(user.getName());
-        if(coupon != null)
+        if (coupon != null)
             orderDto.setCouponName(coupon.getName());
         return orderDto;
     }
