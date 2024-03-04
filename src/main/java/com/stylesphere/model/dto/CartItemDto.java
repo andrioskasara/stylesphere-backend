@@ -10,6 +10,6 @@ public class CartItemDto {
     private Long productId;
     private Long orderId;
     private String productName;
-    private byte[] returnedImage;
+    private byte[] returnedImg;
     private Long userId;
 }
