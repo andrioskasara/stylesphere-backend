@@ -1,5 +1,6 @@
 package com.stylesphere.web;
 
+import com.stylesphere.model.dto.AnalyticsResponse;
 import com.stylesphere.model.dto.OrderDto;
 import com.stylesphere.service.OrderService;
 import org.springframework.http.HttpStatus;
@@ -29,4 +30,10 @@ public class OrderController {
             return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
     }
+
+    @GetMapping("/order/analytics")
+    public ResponseEntity<AnalyticsResponse> getAnalytics() {
+        return ResponseEntity.ok(orderService.calculateAnalytics());
+    }
+
 }

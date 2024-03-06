@@ -10,9 +10,9 @@ public class ProductDto {
     private String name;
     private Double price;
     private String description;
-    private byte[] byteImage;
+    private byte[] byteImg;
     private Long categoryId;
     private String categoryName;
-    private MultipartFile image;
+    private MultipartFile img;
     private Long quantity;
 }

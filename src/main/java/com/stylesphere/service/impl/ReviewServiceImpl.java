@@ -35,17 +35,17 @@ public class ReviewServiceImpl implements ReviewService {
         OrderedProductsResponseDto orderedProductsResponseDto = new OrderedProductsResponseDto();
         if (orderOptional.isPresent()) {
             orderedProductsResponseDto.setOrderAmount(orderOptional.get().getAmount());
-            List<ProductDto> productDtos = new ArrayList<>();
+            List<ProductDto> productDtoList = new ArrayList<>();
             for (CartItem items : orderOptional.get().getCartItems()) {
                 ProductDto productDto = new ProductDto();
                 productDto.setId(items.getProduct().getId());
                 productDto.setName(items.getProduct().getName());
                 productDto.setPrice(items.getPrice());
                 productDto.setQuantity(items.getQuantity());
-                productDto.setByteImage(items.getProduct().getImage());
-                productDtos.add(productDto);
+                productDto.setByteImg(items.getProduct().getImg());
+                productDtoList.add(productDto);
             }
-            orderedProductsResponseDto.setProductDtos(productDtos);
+            orderedProductsResponseDto.setProductDtoList(productDtoList);
         }
         return orderedProductsResponseDto;
     }
@@ -59,7 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
             review.setDescription(reviewDto.getDescription());
             review.setUser(userOptional.get());
             review.setProduct(productOptional.get());
-            review.setImage(reviewDto.getImage().getBytes());
+            review.setImg(reviewDto.getImg().getBytes());
             return reviewRepository.save(review).getDto();
         }
         return null;

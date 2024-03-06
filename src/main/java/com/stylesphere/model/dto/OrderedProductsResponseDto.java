@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class OrderedProductsResponseDto {
-    private List<ProductDto> productDtos;
+    private List<ProductDto> productDtoList;
     private Double orderAmount;
 }

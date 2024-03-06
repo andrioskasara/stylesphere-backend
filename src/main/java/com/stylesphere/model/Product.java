@@ -19,7 +19,7 @@ public class Product {
     private String description;
     @Lob
     //@Column(columnDefinition = "bytea")
-    private byte[] image;
+    private byte[] img;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
@@ -36,7 +36,7 @@ public class Product {
         productDto.setName(name);
         productDto.setPrice(price);
         productDto.setDescription(description);
-        productDto.setByteImage(image);
+        productDto.setByteImg(img);
         productDto.setCategoryId(category.getId());
         productDto.setCategoryName(category.getName());
         return productDto;

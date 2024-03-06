@@ -8,8 +8,8 @@ public class ReviewDto {
     private Long id;
     private Long rating;
     private String description;
-    private MultipartFile image;
-    private byte[] returnedImage;
+    private MultipartFile img;
+    private byte[] returnedImg;
     private Long userId;
     private String username;
     private Long productId;

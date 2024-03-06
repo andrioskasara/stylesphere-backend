@@ -1,7 +1,6 @@
 package com.stylesphere.web;
 
 import com.stylesphere.model.Coupon;
-import com.stylesphere.model.exceptions.CouponAlreadyExists;
 import com.stylesphere.service.CouponService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

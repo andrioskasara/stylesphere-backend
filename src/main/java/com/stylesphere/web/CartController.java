@@ -1,5 +1,6 @@
 package com.stylesphere.web;
 
+import com.stylesphere.model.CartItem;
 import com.stylesphere.model.dto.AddProductInCartDto;
 import com.stylesphere.model.dto.OrderDto;
 import com.stylesphere.model.dto.PlaceOrderDto;
@@ -20,13 +21,13 @@ public class CartController {
     }
 
     @PostMapping("/cart")
-    public ResponseEntity<OrderDto> addProductToCart(@RequestBody AddProductInCartDto productInCartDto) {
-        OrderDto orderDto = cartService.addProductToCart(productInCartDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
+    public ResponseEntity<?> addProductToCart(@RequestBody AddProductInCartDto productInCartDto) {
+        CartItem cartItem = cartService.addProductToCart(productInCartDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartItem);
     }
 
     @GetMapping("/cart/{userId}")
-    public ResponseEntity<OrderDto> getCartByUserId(@PathVariable Long userId) {
+    public ResponseEntity<?> getCartByUserId(@PathVariable Long userId) {
         OrderDto orderDto = cartService.getCartByUserId(userId);
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
     }
@@ -52,9 +53,8 @@ public class CartController {
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.placeOrder(placeOrderDto));
     }
 
-    @GetMapping("cart/{userId}/placed-orders")
+    @GetMapping("/{userId}/placed-orders")
     public ResponseEntity<List<OrderDto>> getUsersPlacedOrders(@PathVariable Long userId) {
         return ResponseEntity.ok(cartService.getUsersPlacedOrders(userId));
     }
-
 }

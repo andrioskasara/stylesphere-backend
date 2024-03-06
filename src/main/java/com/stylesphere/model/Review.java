@@ -16,7 +16,7 @@ public class Review {
     private Long rating;
     private String description;
     @Lob
-    private byte[] image;
+    private byte[] img;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -34,7 +34,7 @@ public class Review {
         reviewDto.setId(id);
         reviewDto.setRating(rating);
         reviewDto.setDescription(description);
-        reviewDto.setReturnedImage(image);
+        reviewDto.setReturnedImg(img);
         reviewDto.setUserId(user.getId());
         reviewDto.setUsername(user.getName());
         reviewDto.setProductId(product.getId());

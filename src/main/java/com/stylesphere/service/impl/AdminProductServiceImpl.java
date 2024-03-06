@@ -45,7 +45,7 @@ public class AdminProductServiceImpl implements AdminProductService {
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
-        product.setImage(productDto.getImage().getBytes());
+        product.setImg(productDto.getImg().getBytes());
         Category category = categoryRepository.findById(productDto.getCategoryId()).orElseThrow(() -> new CategoryNotFoundException(productDto.getCategoryName()));
         product.setCategory(category);
         return productRepository.save(product).getDto();
@@ -60,8 +60,8 @@ public class AdminProductServiceImpl implements AdminProductService {
             product.setPrice(productDto.getPrice());
             product.setDescription(productDto.getDescription());
             product.setCategory(categoryOptional.get());
-            if (productDto.getImage() != null)
-                product.setImage(productDto.getImage().getBytes());
+            if (productDto.getImg() != null)
+                product.setImg(productDto.getImg().getBytes());
             return productRepository.save(product).getDto();
         } else return null;
     }
